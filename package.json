@@ -14,7 +14,7 @@
     "db:seed": "tsx prisma/seed.ts",
     "db:clear": "tsx prisma/clear-db.ts",
     "push:safe": "bash scripts/safe-push.sh",
-    "push": "bash scripts/safe-push.sh"
+    "push": "bash scripts/safe-push.sh \"$@\""
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.2",
