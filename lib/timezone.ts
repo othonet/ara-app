@@ -44,35 +44,26 @@ export function getLocalHours(date: Date): number {
 export function getStartOfDayInBrazil(date: Date = new Date()): Date {
   // Obter a data atual no fuso horário de Brasília
   const brazilTime = toBrazilTime(date)
-  brazilTime.setHours(0, 0, 0, 0)
-  
-  // Criar uma string ISO da data em Brasília e converter para UTC
-  // Formato: YYYY-MM-DDTHH:mm:ss
   const year = brazilTime.getFullYear()
-  const month = String(brazilTime.getMonth() + 1).padStart(2, '0')
-  const day = String(brazilTime.getDate()).padStart(2, '0')
+  const month = brazilTime.getMonth()
+  const day = brazilTime.getDate()
   
-  // Criar uma data assumindo que é meia-noite em Brasília
-  // O offset de Brasília é UTC-3 (ou UTC-2 durante horário de verão)
-  // Vamos usar uma abordagem mais simples: criar a data e ajustar pelo offset
-  const dateStr = `${year}-${month}-${day}T00:00:00`
+  // Criar uma data representando meia-noite em Brasília (como se fosse local)
+  const midnightBrazil = new Date(year, month, day, 0, 0, 0, 0)
   
-  // Usar Intl para obter o offset correto
-  const formatter = new Intl.DateTimeFormat('en-US', {
-    timeZone: TIMEZONE,
-    timeZoneName: 'longOffset',
-  })
+  // Calcular o offset entre UTC e o fuso horário de Brasília
+  // Criar uma data de teste para calcular o offset
+  const testDate = new Date()
+  const utcHours = testDate.getUTCHours()
+  const brazilHours = getLocalHours(testDate)
   
-  // Criar uma data de referência para calcular o offset
-  const testDate = new Date(`${year}-${month}-${day}T12:00:00Z`)
-  const brazilTest = toBrazilTime(testDate)
-  const utcTest = new Date(testDate.toISOString())
+  // Calcular offset (pode ser -3 ou -2 dependendo do horário de verão)
+  let offsetHours = utcHours - brazilHours
+  if (offsetHours < 0) offsetHours += 24
+  if (offsetHours > 12) offsetHours -= 24
   
-  // Calcular offset em horas (geralmente -3 para Brasília)
-  const offsetHours = (utcTest.getHours() - brazilTest.getHours() + 24) % 24
-  
-  // Criar a data UTC que corresponde à meia-noite em Brasília
-  const utcMidnight = new Date(`${year}-${month}-${day}T${String(offsetHours).padStart(2, '0')}:00:00Z`)
+  // Ajustar a data para UTC (adicionar o offset)
+  const utcMidnight = new Date(midnightBrazil.getTime() - (offsetHours * 60 * 60 * 1000))
   
   return utcMidnight
 }
@@ -86,4 +77,3 @@ export function formatInBrazilTime(date: Date, options: Intl.DateTimeFormatOptio
     ...options,
   }).format(date)
 }
-
