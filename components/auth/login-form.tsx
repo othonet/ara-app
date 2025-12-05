@@ -8,7 +8,7 @@ import * as z from "zod"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { CardContent } from "@/components/ui/card"
 import { useToast } from "@/hooks/use-toast"
 
 const loginSchema = z.object({
@@ -79,41 +79,18 @@ export default function LoginForm() {
   }
 
   return (
-    <Card className="w-full max-w-md shadow-2xl border-0 bg-card/95 backdrop-blur-sm animate-in fade-in-0 zoom-in-95 duration-500">
-      <CardHeader className="space-y-3 pb-6">
-        <div className="flex items-center justify-center w-16 h-16 mx-auto mb-2 rounded-2xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-xl ring-2 ring-primary/20">
-          <svg
-            className="w-8 h-8 text-primary-foreground drop-shadow-sm"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-            />
-          </svg>
-        </div>
-        <CardTitle className="text-2xl font-bold text-center bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
-          ARA MES
-        </CardTitle>
-        <CardDescription className="text-center text-base">
-          Sistema de Controle de Recebimento de Frutas
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+    <div className="w-full space-y-6 animate-in fade-in-0 zoom-in-95 duration-500">
+      <CardContent className="p-0">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <div className="space-y-2">
-            <Label htmlFor="email" className="text-sm font-medium">
-              Email
+            <Label htmlFor="email" className="text-sm font-medium text-foreground">
+              E-mail
             </Label>
             <Input
               id="email"
               type="email"
               placeholder="seu@email.com"
-              className="h-11 transition-all focus:scale-[1.02]"
+              className="h-12 bg-background border-border/50 backdrop-blur-sm transition-all focus:scale-[1.01] focus:ring-2 focus:ring-primary/20"
               {...register("email")}
             />
             {errors.email && (
@@ -123,14 +100,14 @@ export default function LoginForm() {
             )}
           </div>
           <div className="space-y-2">
-            <Label htmlFor="password" className="text-sm font-medium">
-              Senha
+            <Label htmlFor="password" className="text-sm font-medium text-foreground">
+              Password
             </Label>
             <Input
               id="password"
               type="password"
               placeholder="••••••••"
-              className="h-11 transition-all focus:scale-[1.02]"
+              className="h-12 bg-background border-border/50 backdrop-blur-sm transition-all focus:scale-[1.01] focus:ring-2 focus:ring-primary/20"
               {...register("password")}
             />
             {errors.password && (
@@ -141,7 +118,7 @@ export default function LoginForm() {
           </div>
           <Button
             type="submit"
-            className="w-full h-11 text-base font-semibold bg-gradient-to-r from-primary via-primary to-primary/90 hover:from-primary/90 hover:via-primary hover:to-primary shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] ring-2 ring-primary/20"
+            className="w-full h-12 text-base font-semibold bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-[1.01] active:scale-[0.99]"
             disabled={isLoading}
           >
             {isLoading ? (
@@ -169,12 +146,12 @@ export default function LoginForm() {
                 Entrando...
               </span>
             ) : (
-              "Entrar"
+              "Login"
             )}
           </Button>
         </form>
       </CardContent>
-    </Card>
+    </div>
   )
 }
 
