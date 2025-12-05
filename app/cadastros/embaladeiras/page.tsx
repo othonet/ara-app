@@ -35,7 +35,7 @@ export default async function EmbaladeirasPage() {
         </div>
       </div>
 
-      <div className="grid gap-3 sm:p-4 sm:gap-6 grid-cols-1 md:grid-cols-2">
+      <div className="grid gap-4 sm:gap-6 grid-cols-1 md:grid-cols-2">
         <Card>
           <CardHeader>
             <CardTitle>Nova Embaladeira</CardTitle>
