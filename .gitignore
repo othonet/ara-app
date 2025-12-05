@@ -47,6 +47,10 @@ logs/
 pm2-error.log
 pm2-out.log
 
+# Test coverage
+coverage/
+.nyc_output/
+
 # IDE
 .vscode/
 .idea/

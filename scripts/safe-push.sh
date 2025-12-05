@@ -70,6 +70,24 @@ git add -A
 echo -e "${BLUE}💾 Fazendo commit...${NC}"
 git commit -m "$COMMIT_MSG"
 
+# Executar testes ANTES do build
+echo ""
+echo -e "${YELLOW}🧪 Executando testes...${NC}"
+echo ""
+
+if npm run test:run; then
+    echo ""
+    echo -e "${GREEN}✅ Todos os testes passaram!${NC}"
+    echo ""
+else
+    echo ""
+    echo -e "${RED}❌ Testes falharam! Push cancelado.${NC}"
+    echo ""
+    echo -e "${YELLOW}💡 Corrija os testes e tente novamente.${NC}"
+    echo -e "${YELLOW}   O commit foi feito localmente, mas não foi enviado.${NC}"
+    exit 1
+fi
+
 # Verificar build ANTES do push
 echo ""
 echo -e "${YELLOW}🔨 Testando build...${NC}"

@@ -32,6 +32,12 @@ jobs:
         run: npm run lint
         continue-on-error: true
 
+      - name: Run tests
+        run: npm run test:run
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+
       - name: Build application
         run: npm run build
         env:
