@@ -33,9 +33,12 @@ export function LoginPageWrapper() {
             {/* Login Form Content */}
             <div className="relative z-10 w-full max-w-md">
               <div className="mb-4 sm:mb-6 md:mb-8 text-center">
-                <h1 className="text-xl sm:text-2xl font-semibold text-foreground mb-2">
-                  Login with e-mail and password
+                <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-foreground via-foreground/90 to-foreground/80 bg-clip-text text-transparent mb-2">
+                  Bem-vindo ao PKG
                 </h1>
+                <p className="text-sm sm:text-base text-muted-foreground">
+                  Acesse sua conta para continuar
+                </p>
               </div>
               <LoginForm />
             </div>
