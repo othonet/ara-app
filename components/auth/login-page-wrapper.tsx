@@ -1,12 +1,9 @@
 "use client"
 
-import { useState } from 'react'
-import Image from 'next/image'
 import LoginForm from './login-form'
 import { ThemeToggle } from '@/components/ui/theme-toggle'
 
 export function LoginPageWrapper() {
-  const [imageError, setImageError] = useState(false)
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-background via-background to-primary/5 relative overflow-hidden">
       {/* Top Bar */}
@@ -27,11 +24,20 @@ export function LoginPageWrapper() {
             
             {/* Logo no topo esquerdo */}
             <div className="absolute top-4 left-4 sm:top-6 sm:left-6 md:top-8 md:left-8 flex items-center gap-2 z-10">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full overflow-hidden ring-2 ring-primary/20 shadow-lg">
-                <div className="w-full h-full flex">
-                  <div className="w-1/2 bg-primary/80"></div>
-                  <div className="w-1/2 bg-primary"></div>
-                </div>
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full overflow-hidden ring-2 ring-primary/20 shadow-lg bg-gradient-to-br from-green-500/80 to-green-600 flex items-center justify-center">
+                <svg
+                  className="w-5 h-5 sm:w-6 sm:h-6 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                  />
+                </svg>
               </div>
             </div>
 
@@ -46,57 +52,29 @@ export function LoginPageWrapper() {
             </div>
           </div>
 
-          {/* Right Side - AGRO Image (40%) - Hidden on mobile */}
-          <div className="hidden md:flex flex-[0.4] items-center justify-center p-6 md:p-8 bg-gradient-to-br from-green-50/50 via-green-50/30 to-primary/5 dark:from-green-950/20 dark:via-green-950/10 dark:to-primary/10 backdrop-blur-sm relative overflow-hidden">
-            {/* Background pattern */}
-            <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05]">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,0,0,0.1),transparent_70%)]"></div>
-            </div>
-            
-            {/* Decorative elements */}
-            <div className="absolute top-10 right-10 w-32 h-32 bg-green-500/10 rounded-full blur-2xl"></div>
-            <div className="absolute bottom-20 left-12 w-24 h-24 bg-primary/10 rounded-full blur-xl"></div>
-            
-            {/* AGRO Image */}
-            <div className="relative z-10 flex items-center justify-center w-full h-full">
-              <div className="relative w-full h-full flex items-center justify-center">
-                {!imageError ? (
-                  <Image
-                    src="/images/agro-image.jpg"
-                    alt="AGRO - Agricultura e Tecnologia"
-                    fill
-                    className="object-cover rounded-lg"
-                    priority
-                    sizes="(max-width: 768px) 0vw, 40vw"
-                    onError={() => setImageError(true)}
-                  />
-                ) : (
-                  /* Fallback decorativo caso a imagem não exista */
-                  <div className="flex flex-col items-center justify-center text-center p-8 w-full h-full">
-                    <div className="w-32 h-32 rounded-full bg-gradient-to-br from-green-500/20 via-green-500/10 to-primary/10 flex items-center justify-center mb-6 shadow-lg ring-2 ring-green-500/20">
-                      <svg
-                        className="w-16 h-16 text-green-600 dark:text-green-400"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
-                        />
-                      </svg>
-                    </div>
-                    <h2 className="text-2xl font-bold text-green-700 dark:text-green-300 mb-2">
-                      AGRO
-                    </h2>
-                    <p className="text-sm text-green-600/80 dark:text-green-400/80">
-                      Agricultura e Tecnologia
-                    </p>
-                  </div>
-                )}
+          {/* Right Side - Decorative Graphics (40%) - Hidden on mobile */}
+          <div className="hidden md:flex flex-[0.4] items-center justify-center p-6 md:p-8 bg-card/20 dark:bg-card/10 backdrop-blur-sm relative overflow-hidden">
+            {/* Main circular graphic */}
+            <div className="relative z-10 flex items-center justify-center">
+              <div className="w-64 h-64 rounded-full overflow-hidden ring-4 ring-primary/20 shadow-2xl">
+                <div className="w-full h-full flex">
+                  <div className="w-1/2 bg-primary/80 dark:bg-primary/70"></div>
+                  <div className="w-1/2 bg-primary dark:bg-primary/90"></div>
+                </div>
               </div>
+              
+              {/* Smaller decorative circles */}
+              <div className="absolute top-10 right-10 w-16 h-16 bg-primary/60 rounded-full blur-sm"></div>
+              <div className="absolute bottom-20 left-12 w-12 h-12 bg-primary/50 rounded-full blur-sm"></div>
+              <div className="absolute top-32 left-8 w-8 h-8 bg-primary/40 rounded-full blur-sm"></div>
+              <div className="absolute bottom-32 right-16 w-10 h-10 bg-primary/50 rounded-full blur-sm"></div>
+              <div className="absolute top-1/2 right-8 w-14 h-14 bg-primary/45 rounded-full blur-sm"></div>
+              <div className="absolute bottom-16 right-1/3 w-9 h-9 bg-primary/40 rounded-full blur-sm"></div>
+            </div>
+
+            {/* Background pattern */}
+            <div className="absolute inset-0 opacity-[0.05] dark:opacity-[0.08]">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,0,0,0.1),transparent_70%)]"></div>
             </div>
           </div>
         </div>
