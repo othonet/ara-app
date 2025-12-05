@@ -94,9 +94,6 @@ export function LoginPageWrapper() {
                     <p className="text-sm text-green-600/80 dark:text-green-400/80">
                       Agricultura e Tecnologia
                     </p>
-                    <p className="text-xs text-muted-foreground mt-4">
-                      Adicione sua imagem em: /public/images/agro-image.jpg
-                    </p>
                   </div>
                 )}
               </div>
