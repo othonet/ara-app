@@ -71,10 +71,14 @@ export function Sidebar() {
   }
 
   return (
-    <div className="flex h-screen w-64 flex-col border-r bg-gradient-to-b from-card to-card/95 backdrop-blur-sm shadow-lg">
-      <div className="flex h-16 items-center border-b px-6 bg-gradient-to-r from-primary/10 via-primary/5 to-transparent backdrop-blur-sm">
+    <div className="flex h-full w-64 flex-col rounded-2xl backdrop-blur-xl bg-card/40 dark:bg-card/30 border border-border/50 shadow-xl shadow-black/5 dark:shadow-black/20 ring-1 ring-white/10 dark:ring-white/5 overflow-hidden">
+      {/* Overlay interno para profundidade */}
+      <div className="absolute inset-0 rounded-2xl bg-gradient-to-b from-white/10 via-white/5 to-transparent dark:from-white/5 dark:via-transparent dark:to-white/5 pointer-events-none"></div>
+      
+      {/* Header com Glassmorfismo */}
+      <div className="relative z-10 flex h-16 items-center border-b border-border/30 px-6 bg-gradient-to-r from-primary/20 via-primary/10 to-transparent backdrop-blur-md">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary via-primary/90 to-primary/80 flex items-center justify-center shadow-lg ring-2 ring-primary/20">
+          <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 flex items-center justify-center shadow-lg ring-2 ring-primary/30 backdrop-blur-sm">
             <svg
               className="w-5 h-5 text-primary-foreground drop-shadow-sm"
               fill="none"
@@ -94,16 +98,18 @@ export function Sidebar() {
           </h1>
         </div>
       </div>
-      <nav className="flex-1 space-y-1 p-4 overflow-y-auto">
+      
+      {/* Navigation com Glassmorfismo */}
+      <nav className="relative z-10 flex-1 space-y-1 p-4 overflow-y-auto">
         {menuItems.map((item, index) => (
           <div key={item.href} className="animate-in fade-in-0 slide-in-from-left-4" style={{ animationDelay: `${index * 50}ms` }}>
             <Link
               href={item.href}
               className={cn(
-                "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-200 group",
+                "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-200 group backdrop-blur-sm",
                 pathname === item.href || (item.children && pathname.startsWith(item.href))
-                  ? "bg-gradient-to-r from-primary via-primary/95 to-primary/90 text-primary-foreground shadow-lg ring-2 ring-primary/20 scale-[1.02]"
-                  : "hover:bg-accent/80 hover:text-accent-foreground hover:scale-[1.01] hover:shadow-sm"
+                  ? "bg-gradient-to-r from-primary/90 via-primary/80 to-primary/90 text-primary-foreground shadow-lg shadow-primary/20 ring-2 ring-primary/30 scale-[1.02] backdrop-blur-md"
+                  : "hover:bg-white/10 dark:hover:bg-white/5 hover:text-accent-foreground hover:scale-[1.01] hover:shadow-md hover:ring-1 hover:ring-white/20 dark:hover:ring-white/10"
               )}
             >
               <item.icon className={cn(
@@ -121,10 +127,10 @@ export function Sidebar() {
                     key={child.href}
                     href={child.href}
                     className={cn(
-                      "flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-all duration-200",
+                      "flex items-center gap-3 rounded-xl px-3 py-2 text-sm transition-all duration-200 backdrop-blur-sm",
                       pathname === child.href
-                        ? "bg-primary/20 text-primary font-medium shadow-md ring-1 ring-primary/30 scale-[1.02]"
-                        : "hover:bg-accent/70 hover:text-accent-foreground hover:scale-[1.01] hover:shadow-sm"
+                        ? "bg-primary/30 dark:bg-primary/20 text-primary font-medium shadow-md shadow-primary/10 ring-1 ring-primary/40 scale-[1.02] backdrop-blur-md"
+                        : "hover:bg-white/10 dark:hover:bg-white/5 hover:text-accent-foreground hover:scale-[1.01] hover:shadow-sm hover:ring-1 hover:ring-white/20 dark:hover:ring-white/10"
                     )}
                     style={{ animationDelay: `${childIndex * 30}ms` }}
                   >
@@ -140,10 +146,12 @@ export function Sidebar() {
           </div>
         ))}
       </nav>
-      <div className="border-t p-4 bg-gradient-to-t from-card to-transparent">
+      
+      {/* Footer com Glassmorfismo */}
+      <div className="relative z-10 border-t border-border/30 p-4 bg-gradient-to-t from-card/40 to-transparent backdrop-blur-md">
         <Button
           variant="ghost"
-          className="w-full justify-start hover:bg-destructive/10 hover:text-destructive transition-all duration-200 group"
+          className="w-full justify-start hover:bg-destructive/20 dark:hover:bg-destructive/10 hover:text-destructive transition-all duration-200 group rounded-xl backdrop-blur-sm hover:ring-1 hover:ring-destructive/20"
           onClick={handleLogout}
         >
           <LogOut className="mr-2 h-4 w-4 transition-transform group-hover:rotate-12" />

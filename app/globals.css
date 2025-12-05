@@ -116,6 +116,27 @@
 }
 
 @layer utilities {
+  /* Glassmorfismo utilities */
+  .glass {
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgba(255, 255, 255, 0.4);
+  }
+  
+  .glass-dark {
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+  
+  .glass-border {
+    border: 1px solid rgba(255, 255, 255, 0.18);
+  }
+  
+  .glass-shadow {
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  }
+
   .animate-in {
     animation-duration: 0.3s;
     animation-fill-mode: both;
