@@ -1,10 +1,12 @@
 "use client"
 
+import { useState } from 'react'
 import Image from 'next/image'
 import LoginForm from './login-form'
 import { ThemeToggle } from '@/components/ui/theme-toggle'
 
 export function LoginPageWrapper() {
+  const [imageError, setImageError] = useState(false)
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-background via-background to-primary/5 relative overflow-hidden">
       {/* Top Bar */}
