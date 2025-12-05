@@ -80,6 +80,7 @@ export default function ApontamentoForm({
   })
 
   const cabecalId = watch("cabecalId")
+  const variedadeId = watch("variedadeId")
   const numeroCarroca = watch("numeroCarroca")
   
   // Obter a cor da válvula selecionada
@@ -242,8 +243,9 @@ export default function ApontamentoForm({
             Área do Campo - Cabeçal *
           </Label>
           <Select
+            value={cabecalId || ""}
             onValueChange={(value) => {
-              setValue("cabecalId", value)
+              setValue("cabecalId", value, { shouldValidate: true })
               setSelectedValvula("")
             }}
           >
@@ -310,7 +312,8 @@ export default function ApontamentoForm({
             Variedade da Fruta *
           </Label>
           <Select
-            onValueChange={(value) => setValue("variedadeId", value)}
+            value={variedadeId || ""}
+            onValueChange={(value) => setValue("variedadeId", value, { shouldValidate: true })}
           >
             <SelectTrigger className="h-11 transition-all focus:scale-[1.01]">
               <SelectValue placeholder="Selecione uma variedade" />

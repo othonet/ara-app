@@ -58,6 +58,7 @@ export default function ValvulasForm({ cabecais }: ValvulasFormProps) {
   })
 
   const corValue = watch("cor")
+  const cabecalIdValue = watch("cabecalId")
 
   const onSubmit = async (data: ValvulaFormData) => {
     try {
@@ -96,8 +97,10 @@ export default function ValvulasForm({ cabecais }: ValvulasFormProps) {
       <div className="space-y-2">
         <Label htmlFor="cabecalId">Cabeçal *</Label>
         <Select
-          onValueChange={(value) => setValue("cabecalId", value)}
-          {...register("cabecalId")}
+          value={cabecalIdValue || ""}
+          onValueChange={(value) => {
+            setValue("cabecalId", value, { shouldValidate: true })
+          }}
         >
           <SelectTrigger>
             <SelectValue placeholder="Selecione um cabeçal" />
