@@ -4,6 +4,7 @@ import { redirect } from "next/navigation"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { ContainerColor } from "@prisma/client"
 import { format, subHours, startOfDay, setHours, getHours } from "date-fns"
+import { getLocalHours, getStartOfDayInBrazil } from "@/lib/timezone"
 import ContentoresChart from "@/components/dashboard/contentores-chart"
 import ContentoresPorHoraChart from "@/components/dashboard/contentores-por-hora-chart"
 import { LayoutDashboard } from "lucide-react"
@@ -28,7 +29,8 @@ export default async function DashboardPage() {
   }
 
   const now = new Date()
-  const startOfToday = startOfDay(now)
+  // Usar início do dia no fuso horário de Brasília
+  const startOfToday = getStartOfDayInBrazil(now)
   const startOfYesterday = startOfDay(subHours(startOfToday, 24))
 
   // Buscar todos os apontamentos do dia com suas amostras e uso de packing
@@ -223,7 +225,7 @@ export default async function DashboardPage() {
 
   // Agrupar por intervalos de 1h
   const containersPorHora = new Map<string, number>()
-  const horaAtual = getHours(now)
+  const horaAtual = getLocalHours(now)
   const horaInicioExpediente = 6 // Expediente começa às 6h
   const horaFimExpediente = 18 // Expediente termina às 18h
   
@@ -234,9 +236,9 @@ export default async function DashboardPage() {
     containersPorHora.set(intervalo, 0)
   }
 
-  // Agrupar apontamentos por intervalo
+  // Agrupar apontamentos por intervalo (usando hora local de Brasília)
   apontamentosParaGrafico.forEach((ap) => {
-    const hora = getHours(ap.createdAt)
+    const hora = getLocalHours(ap.createdAt)
     // Só considerar apontamentos dentro do horário de expediente
     if (hora >= horaInicioExpediente && hora <= horaFimExpediente) {
       const intervalo = `${hora.toString().padStart(2, '0')}h-${(hora + 1).toString().padStart(2, '0')}h`

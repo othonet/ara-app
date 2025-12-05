@@ -3,6 +3,7 @@ import { getCurrentUser } from "@/lib/get-user"
 import { redirect } from "next/navigation"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { startOfDay, getHours } from "date-fns"
+import { getLocalHours, getStartOfDayInBrazil } from "@/lib/timezone"
 import { LayoutDashboard } from "lucide-react"
 import CarrocasPorHoraChart from "@/components/dashboard/secundario/carrocas-por-hora-chart"
 import PalletsPorHoraChart from "@/components/dashboard/secundario/pallets-por-hora-chart"
@@ -23,10 +24,11 @@ export default async function DashboardSecundarioPage() {
   }
 
   const now = new Date()
-  const startOfToday = startOfDay(now)
+  // Usar início do dia no fuso horário de Brasília
+  const startOfToday = getStartOfDayInBrazil(now)
   const horaInicioExpediente = 6
   const horaFimExpediente = 18
-  const horaAtual = getHours(now)
+  const horaAtual = getLocalHours(now)
 
   // Buscar todos os apontamentos do dia
   const apontamentosHoje = await prisma.apontamento.findMany({
@@ -68,7 +70,7 @@ export default async function DashboardSecundarioPage() {
   })
 
   apontamentosHoje.forEach((ap) => {
-    const hora = getHours(ap.createdAt)
+    const hora = getLocalHours(ap.createdAt)
     if (hora >= horaInicioExpediente && hora <= horaFimExpediente) {
       const intervalo = `${hora.toString().padStart(2, '0')}h-${(hora + 1).toString().padStart(2, '0')}h`
       const dados = dadosPorHora.get(intervalo)
