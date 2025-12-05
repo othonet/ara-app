@@ -12,6 +12,9 @@ npm run push "Sua mensagem de commit aqui"
 
 # Com mensagem padrão (data/hora)
 npm run push
+
+# Com confirmação automática (sem perguntar)
+npm run push "Sua mensagem" --yes
 ```
 
 ### Opção 2: Usando o script diretamente
@@ -22,18 +25,27 @@ npm run push
 
 # Com mensagem padrão
 ./scripts/safe-push.sh
+
+# Com confirmação automática (sem perguntar)
+./scripts/safe-push.sh "Sua mensagem" --yes
+# ou
+./scripts/safe-push.sh "Sua mensagem" -y
 ```
 
 ## 🔄 O que o script faz
 
 1. ✅ **Verifica mudanças** - Checa se há arquivos modificados
 2. ✅ **Mostra status** - Exibe as mudanças que serão commitadas
-3. ✅ **Pede confirmação** - Solicita confirmação antes de continuar
+3. ✅ **Pede confirmação** - Solicita confirmação antes de continuar (pode ser pulada com `--yes` ou `-y`)
 4. ✅ **Adiciona arquivos** - `git add -A`
 5. ✅ **Faz commit** - Cria commit com a mensagem fornecida
 6. ✅ **Testa build** - Executa `npm run build` para verificar erros
 7. ✅ **Faz push** - Se o build passar, envia para o GitHub
 8. ❌ **Cancela push** - Se o build falhar, cancela o push
+
+## 🚀 Flags Disponíveis
+
+- `--yes` ou `-y`: Pula a confirmação interativa e faz commit/push automaticamente
 
 ## 📝 Exemplos
 
@@ -55,6 +67,13 @@ npm run push "Implementa Split Screen layout
 - Adiciona layout split screen na página de login
 - Remove botões desnecessários da top bar
 - Centraliza container com espaços laterais"
+```
+
+### Exemplo 4: Commit sem confirmação (automático)
+```bash
+npm run push "Update styling" --yes
+# ou
+./scripts/safe-push.sh "Update styling" -y
 ```
 
 ## ⚠️ Importante

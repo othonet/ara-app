@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Script para fazer push seguro com verificação de build
-# Uso: ./scripts/safe-push.sh [mensagem do commit]
+# Uso: ./scripts/safe-push.sh [mensagem do commit] [--yes|-y]
 
 set -e
 
@@ -11,6 +11,25 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 NC='\033[0m' # No Color
+
+# Verificar flags
+SKIP_CONFIRM=false
+COMMIT_MSG=""
+
+# Processar argumentos
+for arg in "$@"; do
+    case $arg in
+        --yes|-y)
+            SKIP_CONFIRM=true
+            shift
+            ;;
+        *)
+            if [ -z "$COMMIT_MSG" ]; then
+                COMMIT_MSG="$arg"
+            fi
+            ;;
+    esac
+done
 
 echo -e "${BLUE}🚀 Iniciando push seguro...${NC}"
 echo ""
@@ -22,18 +41,25 @@ if [ -z "$(git status --porcelain)" ]; then
 fi
 
 # Verificar se há mensagem de commit
-COMMIT_MSG="${1:-Update: $(date '+%Y-%m-%d %H:%M:%S')}"
+if [ -z "$COMMIT_MSG" ]; then
+    COMMIT_MSG="Update: $(date '+%Y-%m-%d %H:%M:%S')"
+fi
 
 echo -e "${BLUE}📦 Verificando mudanças...${NC}"
 git status --short
 echo ""
 
-# Perguntar confirmação
-read -p "Deseja continuar com o commit? (s/N): " -n 1 -r
-echo
-if [[ ! $REPLY =~ ^[Ss]$ ]]; then
-    echo -e "${YELLOW}❌ Operação cancelada${NC}"
-    exit 1
+# Perguntar confirmação (a menos que --yes seja usado)
+if [ "$SKIP_CONFIRM" = false ]; then
+    read -p "Deseja continuar com o commit? (s/N): " -n 1 -r
+    echo
+    if [[ ! $REPLY =~ ^[Ss]$ ]]; then
+        echo -e "${YELLOW}❌ Operação cancelada${NC}"
+        exit 1
+    fi
+else
+    echo -e "${GREEN}✓ Confirmação automática ativada (--yes)${NC}"
+    echo ""
 fi
 
 # Adicionar todas as mudanças
